@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Navigate to the public directory
+cd "$(dirname "$0")"/..
+
+ARGS=$@
+# Like, --debug or --help
+# Run our tests
+vendor/bin/phpunit --bootstrap vendor/autoload.php $ARGS tests

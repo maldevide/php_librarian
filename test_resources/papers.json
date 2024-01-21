@@ -1,0 +1,26 @@
+{
+    "existing_document.pdf": {
+        "clip": "Example Research Paper",
+        "filename": "example_paper.pdf",
+        "filetype": "pdf",
+        "size": 102400,
+        "uploaded_on": "2024-01-20",
+        "notes": "Important findings on topic X",
+        "visible": true,
+        "status": "Reviewed"
+    },
+    "test_document.pdf": {
+        "clip": "Test Document",
+        "filename": "test_document.pdf",
+        "filetype": "pdf",
+        "size": 102400,
+        "uploaded_on": "2024-01-20",
+        "notes": "Important findings on topic X",
+        "visible": true,
+        "status": "Reviewed"
+    },
+    "test_paper.pdf": {
+        "clip": "Updated Test Paper",
+        "author": "Updated Author"
+    }
+}

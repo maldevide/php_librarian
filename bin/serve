@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Navigate to the public directory
+cd "$(dirname "$0")"/../public
+
+# Start PHP built-in server
+echo "Starting PHP server on 0.0.0.0:4488"
+local_ini=./local/php.ini
+php -S 0.0.0.0:4488 -d upload_max_filesize=100M -d post_max_size=100M
