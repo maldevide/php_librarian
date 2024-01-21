@@ -4,12 +4,10 @@ namespace Librarian;
 
 use Librarian\FileSystem;
 use Librarian\Configuration;
-use Librarian\ConfigurationKey;
 
 class DocumentUpload {
     private FileSystem $fileSystem;
     private string $docsDir;
-    // 2 ^ 25
     private int $maxFileSize;
 
     public function __construct(FileSystem $fileSystem) {
@@ -17,10 +15,10 @@ class DocumentUpload {
         $config = Configuration::getInstance();
         $this->docsDir = $config->getDocsDir();
         $this->maxFileSize = 2**25;
-        $this->maxFileSize = 1000000;
+        $this->maxFileSize = 1000000; // TODO move to config
     }
 
-    public function uploadFile(array $file): array {
+    public function uploadFile(array $file, string $method = 'move_upload'): array {
         // Check for errors in the file upload
         if ($file['error'] === UPLOAD_ERR_INI_SIZE || $file['error'] === UPLOAD_ERR_FORM_SIZE) {
             return ['error' => "File is too large."];
@@ -41,7 +39,16 @@ class DocumentUpload {
         $destination = $this->docsDir . '/' . $filePrefix . '_' . uniqid() . '.' . $fileExt;
 
         $fromPath = $file['tmp_name'];
-        if (move_uploaded_file($fromPath, $destination)) {
+        if ($method === 'copy') {
+            $result = copy($fromPath, $destination);
+        } elseif ($method === 'move_upload') {
+            $result = move_uploaded_file($fromPath, $destination);
+        } elseif ($method === 'move') {
+            $result = rename($fromPath, $destination);
+        } else {
+            throw new \Exception("Invalid method: {$method}");
+        }
+        if ($result) {
             $pdfFile = basename($destination);
             if ($file['size'] <= $this->maxFileSize) {
                 $clip = $this->fileSystem->getPdfText($pdfFile, 15, 3);

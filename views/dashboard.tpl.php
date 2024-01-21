@@ -6,7 +6,10 @@
         <input type="file" name="pdfFile" id="pdfFile" onchange="fileSelected()">
         <input type="submit" value="Upload PDF" name="submit">
     </form>
-    <button id="batchUploadBtn" onclick="window.location.href='batchupload.php'">Batch Upload</button>
+    <span>
+        <button id="batchUploadBtn" onclick="window.location.href='batchupload.php'">Batch</button>
+        <button id="scrapeBtn" onclick="window.location.href='scrape.php'">Scrape</button>
+    </span>
 </div>
 
 <!-- File Upload Modal -->

@@ -3,10 +3,10 @@
 namespace Librarian;
 
 class Configuration {
-    private static ?Configuration $instance = null;
-    private array $config;
+    protected static ?Configuration $instance = null;
+    protected array $config;
 
-    private function __construct() {
+    protected function __construct() {
         $this->config = [
            ConfigurationKey::RootPath->value => "local",
            ConfigurationKey::DocsPath->value => 'docs',
@@ -26,7 +26,7 @@ class Configuration {
         return self::$instance;
     }
 
-    public function get(ConfigurationKey $key) {
+    protected function get(ConfigurationKey $key) {
         return $this->config[$key->value] ?? null;
     }
 
